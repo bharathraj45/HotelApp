@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 protocol EditViewModelProtocol {
+    func getNumberOfRows() -> Int
     func updateHotelCellViewModel()
 }
 
@@ -16,6 +17,12 @@ class EditViewModel: EditViewModelProtocol {
     
     var hotelModel: HotelModel?
     var hotelCellViewModel: HotelCellViewModel?
+    
+    // MARK: - EditViewModelProtocol methods
+    
+    func getNumberOfRows() -> Int {
+        return 1
+    }
     
     func updateHotelCellViewModel() {
         if let hotelModel = hotelModel {
@@ -28,14 +35,4 @@ class EditViewModel: EditViewModelProtocol {
                                                     photo: hotelModel.photo)
         }
     }
-}
-
-struct HotelCellViewModel {
-    let name: String
-    let rating: Int
-    let isFavorite: Bool
-    let address: String
-    let dateOfStay: String?
-    let roomRate: Double?
-    let photo: UIImage?
 }

@@ -102,22 +102,26 @@
                                     <action selector="stepperTap:" destination="KGk-i7-Jjw" eventType="valueChanged" id="Iac-AC-h90"/>
                                 </connections>
                             </stepper>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose picture" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wii-AW-NhZ">
-                                <rect key="frame" x="0.0" y="333" width="290" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="KBH-PB-BlM">
-                                <rect key="frame" x="85" y="362" width="120" height="80"/>
+                                <rect key="frame" x="85" y="363" width="120" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="iUr-o6-DpH"/>
                                     <constraint firstAttribute="width" constant="120" id="vkT-vc-WhB"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YEM-vO-cyf">
+                                <rect key="frame" x="83.5" y="327" width="123" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Choose Picture"/>
+                                <connections>
+                                    <action selector="choosePictureButtonTap:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="EIE-Dh-Yef"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="ot5-BM-jxU" firstAttribute="top" secondItem="PnW-ux-ntU" secondAttribute="bottom" constant="8" symbolic="YES" id="3Nh-Or-d2d"/>
+                            <constraint firstAttribute="trailing" secondItem="YEM-vO-cyf" secondAttribute="trailing" constant="83.5" id="4NV-9Y-325"/>
+                            <constraint firstItem="YEM-vO-cyf" firstAttribute="leading" secondItem="96E-Q7-t3O" secondAttribute="leading" constant="83.5" id="7Zf-11-YbT"/>
                             <constraint firstItem="rbV-hX-vDo" firstAttribute="centerX" secondItem="96E-Q7-t3O" secondAttribute="centerX" id="9DH-Mk-Qrd"/>
                             <constraint firstItem="M8s-lZ-yGX" firstAttribute="centerX" secondItem="96E-Q7-t3O" secondAttribute="centerX" id="AGm-DD-0fD"/>
                             <constraint firstItem="ot5-BM-jxU" firstAttribute="leading" secondItem="dv8-sV-9II" secondAttribute="leading" id="AQL-EI-enA"/>
@@ -127,21 +131,20 @@
                             <constraint firstItem="ut0-qR-Kqy" firstAttribute="top" secondItem="ot5-BM-jxU" secondAttribute="bottom" constant="8" symbolic="YES" id="JQV-Gw-XE7"/>
                             <constraint firstItem="kAX-8Q-A3E" firstAttribute="top" secondItem="75k-2x-8Ta" secondAttribute="bottom" constant="8" symbolic="YES" id="K2B-kE-ejp"/>
                             <constraint firstItem="PnW-ux-ntU" firstAttribute="top" secondItem="dv8-sV-9II" secondAttribute="bottom" constant="8" symbolic="YES" id="KA0-fP-IHr"/>
+                            <constraint firstItem="YEM-vO-cyf" firstAttribute="top" secondItem="kz8-Ds-5kj" secondAttribute="bottom" constant="2" id="LAa-CA-4Oq"/>
                             <constraint firstItem="dv8-sV-9II" firstAttribute="trailing" secondItem="kAX-8Q-A3E" secondAttribute="trailing" id="MW7-bP-VMl"/>
                             <constraint firstItem="ot5-BM-jxU" firstAttribute="centerX" secondItem="96E-Q7-t3O" secondAttribute="centerX" id="Pc1-m5-TIM"/>
                             <constraint firstItem="75k-2x-8Ta" firstAttribute="top" secondItem="rbV-hX-vDo" secondAttribute="bottom" constant="8" symbolic="YES" id="RPg-dd-50C"/>
                             <constraint firstItem="kz8-Ds-5kj" firstAttribute="centerX" secondItem="96E-Q7-t3O" secondAttribute="centerX" id="Rbj-Wb-1kr"/>
                             <constraint firstAttribute="height" constant="455" id="Rdn-SH-5pY"/>
-                            <constraint firstItem="wii-AW-NhZ" firstAttribute="leading" secondItem="96E-Q7-t3O" secondAttribute="leading" id="SbJ-Wa-pc5"/>
                             <constraint firstItem="PnW-ux-ntU" firstAttribute="leading" secondItem="96E-Q7-t3O" secondAttribute="leading" id="UWk-OE-XzA"/>
                             <constraint firstItem="M8s-lZ-yGX" firstAttribute="leading" secondItem="96E-Q7-t3O" secondAttribute="leading" id="Vgl-Y0-o87"/>
                             <constraint firstItem="kAX-8Q-A3E" firstAttribute="leading" secondItem="rbV-hX-vDo" secondAttribute="leading" id="XTV-x8-SZQ"/>
+                            <constraint firstItem="KBH-PB-BlM" firstAttribute="top" secondItem="YEM-vO-cyf" secondAttribute="bottom" constant="5" id="YS4-ch-sBa"/>
                             <constraint firstAttribute="trailing" secondItem="ut0-qR-Kqy" secondAttribute="trailing" id="ZeD-xP-NHb"/>
                             <constraint firstItem="PnW-ux-ntU" firstAttribute="centerX" secondItem="96E-Q7-t3O" secondAttribute="centerX" id="dz3-Bd-fxz"/>
-                            <constraint firstAttribute="trailing" secondItem="wii-AW-NhZ" secondAttribute="trailing" id="eJe-a4-hcm"/>
+                            <constraint firstItem="YEM-vO-cyf" firstAttribute="centerX" secondItem="96E-Q7-t3O" secondAttribute="centerX" id="eGW-ur-BiO"/>
                             <constraint firstAttribute="trailing" secondItem="rbV-hX-vDo" secondAttribute="trailing" constant="15" id="eOH-XC-eDs"/>
-                            <constraint firstItem="KBH-PB-BlM" firstAttribute="top" secondItem="wii-AW-NhZ" secondAttribute="bottom" constant="8" symbolic="YES" id="h4k-tY-DJk"/>
-                            <constraint firstItem="wii-AW-NhZ" firstAttribute="top" secondItem="kz8-Ds-5kj" secondAttribute="bottom" constant="8" symbolic="YES" id="hiM-oW-WJk"/>
                             <constraint firstItem="kz8-Ds-5kj" firstAttribute="top" secondItem="ut0-qR-Kqy" secondAttribute="bottom" constant="8" symbolic="YES" id="hvS-q1-OFz"/>
                             <constraint firstItem="SgX-zt-RBt" firstAttribute="top" secondItem="96E-Q7-t3O" secondAttribute="top" id="jUW-eW-1W8"/>
                             <constraint firstItem="ut0-qR-Kqy" firstAttribute="centerX" secondItem="96E-Q7-t3O" secondAttribute="centerX" id="kOE-88-JYM"/>
@@ -172,6 +175,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="addressTextField" destination="kAX-8Q-A3E" id="JYL-r8-ZtO"/>
+                <outlet property="choosePictureButton" destination="YEM-vO-cyf" id="YdZ-iq-FUJ"/>
                 <outlet property="dosTextField" destination="dv8-sV-9II" id="vvk-gu-P8x"/>
                 <outlet property="nameTextField" destination="rbV-hX-vDo" id="ye7-kY-Iqi"/>
                 <outlet property="photoImageView" destination="KBH-PB-BlM" id="GJ6-pw-Exe"/>

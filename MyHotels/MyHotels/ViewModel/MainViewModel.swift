@@ -24,6 +24,8 @@ class MainViewModel: MainViewModelProtocol {
     
     var reloadTableView: (() -> Void)?
     
+    // MARK: - MainViewModelProtocol methods
+    
     func getNumberOfRows() -> Int {
         return hotels.count
     }
@@ -57,11 +59,4 @@ class MainViewModel: MainViewModelProtocol {
         hotels.remove(at: row)
         reloadTableView?()
     }
-}
-
-struct MainCellModel {
-    let name: String
-    let rating: Int
-    let isFavorite: Bool
-    let photo: UIImage?
 }

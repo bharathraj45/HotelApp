@@ -16,15 +16,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        setUp()
+        setUpView()
     }
     
-    private func setUp() {
+    private func setUpView() {
         tableView.register(MainTableViewCell.nib(), forCellReuseIdentifier: MainTableViewCell.identifier)
         self.tableView.estimatedRowHeight = 100.0
         self.tableView.rowHeight = UITableView.automaticDimension
         
-        self.navigationItem.title = "My Hotels"
+        self.navigationItem.title = Constants.General.mainScreenTitle
         let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         navigationItem.rightBarButtonItems = [add]
         
@@ -35,6 +35,11 @@ class ViewController: UIViewController {
         }
     }
     
+    @objc private func addTapped(_ sender: Any) {
+        self.performSegue(withIdentifier: Constants.SegueIdentifiers.editViewControllerSegue, sender: sender)
+    }
+    
+    // MARK: - Call back methods
     func addHotel(hotelModel: HotelModel) {
         mainViewModel?.addHotel(hotel: hotelModel)
     }
@@ -43,24 +48,20 @@ class ViewController: UIViewController {
         mainViewModel?.updateHotel(hotel: hotelModel, row: indexPath.row)
     }
     
-    @objc private func addTapped(_ sender: Any) {
-        self.performSegue(withIdentifier: Constants.editViewControllerSegue, sender: sender)
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.SegueIdentifiers.editViewControllerSegue,
+           let editViewcontroller = segue.destination as?  EditViewController {
+            if !(sender is UIBarItem),
+               let indexPath = tableView.indexPathForSelectedRow,
+               let hotelModel = mainViewModel?.hotels[indexPath.row] {
+                editViewcontroller.editViewModel.hotelModel = hotelModel
+                editViewcontroller.isEdit = true
+                editViewcontroller.selectedIndexPath = indexPath
+            }
+        }
     }
-    
-     // MARK: - Navigation
-    
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         if segue.identifier == Constants.editViewControllerSegue,
-            let editViewcontroller = segue.destination as?  EditViewController {
-             if !(sender is UIBarItem),
-                let indexPath = tableView.indexPathForSelectedRow,
-                let hotelModel = mainViewModel?.hotels[indexPath.row] {
-                 editViewcontroller.editViewModel.hotelModel = hotelModel
-                 editViewcontroller.isEdit = true
-                 editViewcontroller.selectedIndexPath = indexPath
-             }
-         }
-     }
 }
 
 extension ViewController: UITableViewDataSource {
@@ -86,7 +87,7 @@ extension ViewController: UITableViewDataSource {
 extension ViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: Constants.editViewControllerSegue, sender: self)
+        self.performSegue(withIdentifier: Constants.SegueIdentifiers.editViewControllerSegue, sender: self)
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

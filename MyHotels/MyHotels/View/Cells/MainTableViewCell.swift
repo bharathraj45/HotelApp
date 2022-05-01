@@ -9,10 +9,10 @@ import UIKit
 
 class MainTableViewCell: UITableViewCell {
     
-    static let identifier = "MainTableViewCell"
-
+    static let identifier = Constants.CellIdentifiers.mainCell
+    
     static func nib() -> UINib {
-        return UINib(nibName: "MainTableViewCell",
+        return UINib(nibName: Constants.CellIdentifiers.mainCell,
                      bundle: nil)
     }
     
@@ -37,10 +37,10 @@ class MainTableViewCell: UITableViewCell {
         self.hotelImageView.image = cellModel.photo
         self.hotelNameLabel.text = cellModel.name
         self.favoriteButton.isSelected = cellModel.isFavorite
-        self.favoriteButton.setImage(UIImage(named: "favorite_unselected"), for: .normal)
-        self.favoriteButton.setImage(UIImage(named: "favorite_selected"), for: .selected)
-        self.ratingLabel.text = "Rating \(cellModel.rating)/5"
-        self.hotelImageView.image = (cellModel.photo != nil) ? cellModel.photo : UIImage(named: "placeholder")
+        self.favoriteButton.setImage(UIImage(named: Constants.Icons.favoriteUnSelected), for: .normal)
+        self.favoriteButton.setImage(UIImage(named: Constants.Icons.favoriteSelected), for: .selected)
+        self.ratingLabel.text = String(format: Constants.PlaceHolderTexts.rating, cellModel.rating)
+        self.hotelImageView.image = (cellModel.photo != nil) ? cellModel.photo : UIImage(named: Constants.Icons.placeholder)
     }
     
     @IBAction func favoriteButtonTap(_ sender: UIButton) {

@@ -15,21 +15,26 @@ class EditViewController: UIViewController, UINavigationControllerDelegate {
     var editViewModel = EditViewModel()
     var selectedIndexPath: IndexPath?
     
+    private let defaultIndexpath = IndexPath(row: 0, section: 0)
+    private let defaultRating = 1
+    
+    private let imagePicker = UIImagePickerController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        setUp()
+        setUpView()
     }
     
-    private func setUp() {
+    private func setUpView() {
         tableView.register(EditTableViewCell.nib(), forCellReuseIdentifier: EditTableViewCell.identifier)
         self.tableView.estimatedRowHeight = 100.0
         self.tableView.rowHeight = UITableView.automaticDimension
         
         let save = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveTapped))
         navigationItem.rightBarButtonItems = [save]
-        navigationItem.title = isEdit ? "Edit Hotel" : "Add Hotel"
+        navigationItem.title = isEdit ? Constants.General.editScreenTitle : Constants.General.addScreenTitle
         if isEdit {
             editViewModel.updateHotelCellViewModel()
         }
@@ -39,14 +44,14 @@ class EditViewController: UIViewController, UINavigationControllerDelegate {
     @objc private func saveTapped(_ sender: Any) {
         self.view.endEditing(true)
         
-        if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? EditTableViewCell,
+        if let cell = tableView.cellForRow(at: defaultIndexpath) as? EditTableViewCell,
            let name = cell.nameTextField.text,
            let address = cell.addressTextField.text,
            let dateOfStay = cell.dosTextField.text,
            let roomRate = cell.roomRateTextField.text,
            !name.isEmpty, !address.isEmpty, !dateOfStay.isEmpty, !roomRate.isEmpty {
             let roomRate = Double(roomRate)
-            let rating = Int(cell.ratingValueLabel.text?.suffix(1) ?? "1") ?? 1
+            let rating = Int(cell.ratingValueLabel.text?.suffix(1) ?? "\(defaultRating)") ?? defaultRating
             let image = cell.photoImageView.image
             let isFavorite = (isEdit ? editViewModel.hotelModel?.isFavorite : false) ?? false
             let hotelModel = HotelModel(name: name,
@@ -78,7 +83,7 @@ class EditViewController: UIViewController, UINavigationControllerDelegate {
 extension EditViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return editViewModel.getNumberOfRows()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -88,14 +93,17 @@ extension EditViewController: UITableViewDataSource {
             }
             cell.choosePicureClosure = { [weak self] in
                 guard let self = self else { return }
-                let imagePicker =  UIImagePickerController()
-                imagePicker.delegate = self
-                imagePicker.sourceType = .photoLibrary
-                self.present(imagePicker, animated: true, completion: nil)
+                self.presentImagePicker()
             }
             return cell
         }
         return UITableViewCell()
+    }
+    
+    private func presentImagePicker() {
+        self.imagePicker.delegate = self
+        self.imagePicker.sourceType = .photoLibrary
+        self.present(self.imagePicker, animated: true, completion: nil)
     }
 }
 
@@ -103,7 +111,7 @@ extension EditViewController: UIImagePickerControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage: UIImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
-           let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? EditTableViewCell {
+           let cell = tableView.cellForRow(at: defaultIndexpath) as? EditTableViewCell {
             cell.populateImage(image: selectedImage)
         }
         dismiss(animated: true, completion: nil)

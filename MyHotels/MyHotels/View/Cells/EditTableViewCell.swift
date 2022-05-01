@@ -9,10 +9,10 @@ import UIKit
 
 class EditTableViewCell: UITableViewCell {
     
-    static let identifier = "EditTableViewCell"
+    static let identifier = Constants.CellIdentifiers.editCell
     
     static func nib() -> UINib {
-        return UINib(nibName: "EditTableViewCell",
+        return UINib(nibName: Constants.CellIdentifiers.editCell,
                      bundle: nil)
     }
     
@@ -23,6 +23,7 @@ class EditTableViewCell: UITableViewCell {
     @IBOutlet weak var ratingStepper: UIStepper!
     @IBOutlet weak var ratingValueLabel: UILabel!
     @IBOutlet weak var photoImageView: UIImageView!
+    @IBOutlet weak var choosePictureButton: UIButton!
     
     @objc var choosePicureClosure: (() -> Void)?
     
@@ -54,9 +55,9 @@ class EditTableViewCell: UITableViewCell {
         addressTextField.text = hotelCellViewModel.address
         dosTextField.text = hotelCellViewModel.dateOfStay
         roomRateTextField.text = hotelCellViewModel.roomRate?.description
-        ratingValueLabel.text = "Rating \(hotelCellViewModel.rating)"
+        ratingValueLabel.text = String(format: Constants.PlaceHolderTexts.rating, hotelCellViewModel.rating)
         ratingStepper.value = Double(hotelCellViewModel.rating)
-        photoImageView.image = (hotelCellViewModel.photo != nil) ? hotelCellViewModel.photo : UIImage(named: "placeholder")
+        photoImageView.image = (hotelCellViewModel.photo != nil) ? hotelCellViewModel.photo : UIImage(named: Constants.Icons.placeholder)
     }
     
     func populateImage(image: UIImage) {
@@ -64,23 +65,20 @@ class EditTableViewCell: UITableViewCell {
     }
     
     @IBAction func stepperTap(_ sender: UIStepper) {
-        ratingValueLabel.text = "Rating \(Int(sender.value).description)"
+        ratingValueLabel.text = String(format: Constants.PlaceHolderTexts.rating, Int(sender.value))
     }
     
-    @objc func handleDatePicker(sender: UIDatePicker) {
+    @IBAction func choosePictureButtonTap(_ sender: UIButton) {
+        self.choosePicureClosure?()
+    }
+    
+    @objc private func handleDatePicker(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = Constants.dateFormat
+        dateFormatter.dateFormat = Constants.DateFormats.dayMonthYear
         dosTextField.text = dateFormatter.string(from: sender.date)
     }
     
-    @objc func choosePicture() {
+    @objc private func choosePicture() {
         self.choosePicureClosure?()
-    }
-}
-
-extension EditTableViewCell: UITextFieldDelegate {
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        
     }
 }
